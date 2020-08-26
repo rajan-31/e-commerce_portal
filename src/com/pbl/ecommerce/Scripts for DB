@@ -1,0 +1,15 @@
+create database E_Com; 
+use E_Com;
+create table customer(c_id int primary key auto_increment,username varchar(88) unique not null,password varchar(88) not null);
+create table admin(a_id int primary key auto_increment,admin_name varchar(88) unique not null,password varchar(88) not null);
+
+create table orders(c_id int,No int, foreign key (c_id) references customer (c_id));
+create table carts(c_id int,No int, foreign key (c_id) references customer (c_id));
+
+create table products(No int primary key,Name varchar(88) unique not null,Cost decimal(10,2) not null,Stock int not null,image mediumblob);
+
+insert into admin(username,password) values('pandey','pandey');
+
+//backup & restore db
+sudo mysqldump -u rajan E_Com > /mnt/d/E_ComBackup -p
+sudo mysql -u rajan -p new_db < /mnt/d/E_ComBackup
